@@ -117,7 +117,26 @@ def time_conversion(s):
         else:
             return f"{int(hr) + 12}:{mins}:{sec}"
 
-            
+def lonely(a): 
+    d = {}
+    for x in a: 
+        if x not in d:
+            d[x] = 1 
+        else:
+            d[x] += 1 
+    
+    for k, v in d.items():
+        if v == 1:
+            return k 
+        
+    return -1 
+
+def diag_diff(n, M): 
+    a, b = 0, 0 
+    for i in range(n): 
+        a += M[i][i]
+        b += M[n-1-i][i]
+    return abs(a - b)
 
 
 def main(): 
@@ -136,10 +155,13 @@ def main():
     # print(balanced("{{[[(())]]}}"))
     # print(balanced("{"))
     # text_editor() 
-    print(time_conversion("07:05:45PM"))
-    print(time_conversion("12:18:25PM"))
-    print(time_conversion("12:18:25AM"))
-
+    # print(time_conversion("07:05:45PM"))
+    # print(time_conversion("12:18:25PM"))
+    # print(time_conversion("12:18:25AM"))
+    # print(lonely([1,2,3,4,3,2,1]))
+    # print(lonely([1,1,1,3,5,5,5,3]))
+    print(diag_diff(3, [[11,2,4], [4,5,6], [10,8,-12]]))
+    print(diag_diff(3, [[1,2,3], [4,5,6], [9,8,9]]))
 
 
 if __name__ == "__main__": 
