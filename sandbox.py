@@ -144,7 +144,66 @@ def counting_sort(a):
         c[x] += 1 
     return c 
 
+def median(a): 
+    n = len(a) 
+    mid = n // 2 
+    a = sorted(a) 
+    print(a) 
+    return a[mid]
+
+def palindrome(s):
+    if s == s[::-1]:
+        return -1
+    
+    else:
+        for i in range(len(s)):
+            temp_s = list(s) 
+            temp_s.remove(s[i]) 
+            if temp_s == temp_s[::-1]: 
+                return i 
+        return -1
+
+def contig_sum(a): 
+    max_ending = max_slice = 0 
+    for x in a: 
+        max_ending = max(0, max_ending + x)
+        max_slice = max(max_slice, max_ending)
+    return max_slice
+
+def closest_nums(a): 
+    a = sorted(a) 
+    diffs = [abs(a[i]-a[i-1]) for i in range(1, len(a))]
+    min_diff = min(diffs) 
+    idxs = [i for i in range(len(diffs)) if diffs[i] == min_diff]
+    res = []
+    for idx in idxs: 
+        print(a[idx], a[idx+1])
+
+def updateTimes(sigOne, sigTwo): 
+    n = len(sigOne)
+    m = len(sigTwo)
+    runtime = min(n, m) 
+    print("runtime: ", runtime)
+    updates = 0 
+    max_equal = 0 
+    for i in range(runtime): 
+        if sigOne[i] == sigTwo[i]:
+            print(sigOne[i], sigTwo[i]) 
+            cur_equal = sigOne[i] 
+            if cur_equal > max_equal:
+                max_equal = cur_equal
+                updates += 1
+                print(i, cur_equal, max_equal, updates)
+                print("")
+    return updates 
+
+def rot_left(a, d): 
+    n = len(a) 
+    return [a[(i+d)%n] for i in range(n)]
+
 def main(): 
+
+    print(rot_left([1,2,3,4,5], 4))
     # print(towers(2, 2))
     # print(towers(1, 4))
     # print(grid_order(['ebacd', 'fghij', 'olmkn', 'trpqs', 'xywuv']))
@@ -170,6 +229,18 @@ def main():
     # arr = "63 25 73 1 98 73 56 84 86 57 16 83 8 25 81 56 9 53 98 67 99 12 83 89 80 91 39 86 76 85 74 39 25 90 59 10 94 32 44 3 89 30 27 79 46 96 27 32 18 21 92 69 81 40 40 34 68 78 24 87 42 69 23 41 78 22 6 90 99 89 50 30 20 1 43 3 70 95 33 46 44 9 69 48 33 60 65 16 82 67 61 32 21 79 75 75 13 87 70 33 "
     # print(counting_sort([1,1,3,2,1]))
     # print(counting_sort(list(map(int, arr.split()))))
+    # print(median([5,3,1,2,4]))
+    # print(palindrome("hgygsvlfcwnswtuhmyaljkqlqjjqlqkjlaymhutwsnwcwflvsgygh"))  #-1
+    # print(palindrome("a")) # -1
+    # print(palindrome("baab")) #-1
+    # print(palindrome("aaa")) #-1
+    # print(palindrome("adaxa")) #-1
+    # print(palindrome("aaax")) #3
+    # print(contig_sum([-1,3,4,-2,5,-7]))
+    # print(contig_sum([-1,-3,-4,-2,-5,-7]))
+    # print(closest_nums([6,2,4,10]))
+    # print(updateTimes([1,2,3,3,3,5,4], [1,2,3,4,3,5,4]))
+
 
 if __name__ == "__main__": 
     main() 
