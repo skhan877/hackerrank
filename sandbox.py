@@ -201,9 +201,61 @@ def rot_left(a, d):
     n = len(a) 
     return [a[(i+d)%n] for i in range(n)]
 
+def picking_numbers(a):
+    n = len(a) 
+    p, q = 0, 0 
+    count = 0 
+    a = sorted(a)
+    max_count = 0 
+    cur_count = 0
+    while q < n: 
+        if abs(a[p] - a[q]) <= 1: 
+            cur_count += 1
+            # print(a[p], a[q], cur_count)
+            q += 1
+        else:
+            # print(a[p], a[q], cur_count)
+            p = q 
+            cur_count = 0 
+        max_count = max(max_count, cur_count)
+    return max_count
+
+def prisoner_sweet(n, m, s): 
+    # candy_positions = []
+    # for i in range(s, m+s): 
+    #     position = i % n 
+    #     candy_positions.append(position)
+    # return candy_positions[-1]
+    return (m - 1 + s - 1) % n + 1 
+
+def minimum_distance(a): 
+    d = {} 
+    for i in range(len(a)): 
+        if a[i] in d: 
+            d[a[i]].append(i) 
+        else:
+            d[a[i]] = [i]
+    
+    distances = []
+    for k, v in d.items(): 
+        if len(v) == 2: 
+            distances.append(v[1] - v[0]) 
+    return -1 if not distances else min(distances)
+
+
 def main(): 
 
-    print(rot_left([1,2,3,4,5], 4))
+    print(minimum_distance([3,2,1,2,3]))
+    print(minimum_distance([7,1,3,4,1,7]))
+    print(minimum_distance([7,7]))
+    print(minimum_distance([7,3]))
+    # print(prisoner_sweet(4,6,2))
+    # print(prisoner_sweet(5,2,1))
+    # print(prisoner_sweet(5,2,2))
+    # print(picking_numbers([1,1,2,2,4,4,5,5,5]))
+    # print(picking_numbers([1,2,2,3,1,2]))
+    # print(picking_numbers([4,6,5,3,3,1]))
+    # print(rot_left([1,2,3,4,5], 4))
     # print(towers(2, 2))
     # print(towers(1, 4))
     # print(grid_order(['ebacd', 'fghij', 'olmkn', 'trpqs', 'xywuv']))
