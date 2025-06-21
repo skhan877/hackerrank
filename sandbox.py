@@ -242,13 +242,42 @@ def minimum_distance(a):
             distances.append(v[1] - v[0]) 
     return -1 if not distances else min(distances)
 
+def acm_team(topics): 
+    # ans = [no of topics, no of teams that know these] 
+    possible_teams = []
+    best_teams = 0
+    count_topics = []
+    n_people = len(topics)
+    for i in range(n_people - 1): 
+        for j in range(i+1, n_people): 
+            team = [i+1, j+1]
+            possible_teams.append(team)
+            # bitwise OR 
+            a, b = topics[i], topics[j]
+            bitor = str(bin(int(a, 2) | int(b, 2)))
+            count = bitor.replace("0b", "").count("1")
+            count_topics.append(count)
+
+    max_count = max(count_topics)
+    for counts in count_topics:
+        if counts == max_count:
+            best_teams += 1
+
+    return [max_count, best_teams]
+
+
 
 def main(): 
 
-    print(minimum_distance([3,2,1,2,3]))
-    print(minimum_distance([7,1,3,4,1,7]))
-    print(minimum_distance([7,7]))
-    print(minimum_distance([7,3]))
+    print(acm_team(["10101","11110","00010"]))
+    print(acm_team(["10101","11100","11010","00101"]))
+    # a = "1100"
+    # b = "1010"
+    # print(a, b, str(bin(int(a, 2) | int(b, 2))).replace("0b", "").count("1"))
+    # print(minimum_distance([3,2,1,2,3]))
+    # print(minimum_distance([7,1,3,4,1,7]))
+    # print(minimum_distance([7,7]))
+    # print(minimum_distance([7,3]))
     # print(prisoner_sweet(4,6,2))
     # print(prisoner_sweet(5,2,1))
     # print(prisoner_sweet(5,2,2))
