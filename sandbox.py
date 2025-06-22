@@ -272,10 +272,53 @@ def circular_rotate(a, k, q):
         rotated[(i+k)%n] = a[i] 
     return [rotated[j] for j in q]
 
+def num_games(p, d, m, s): 
+
+    games = 0 
+    while s >= p: 
+        s -=p 
+        p = max(p-d, m) 
+        games += 1
+    return games 
+
+def magazine(mag, note): 
+    result = "Yes"
+    mag_counts = {} 
+    for word in mag.split(): 
+        if word in mag_counts: 
+            mag_counts[word] += 1
+        else:
+            mag_counts[word] = 1 
+    
+    for n in note.split(): 
+        if n in mag_counts: 
+            mag_counts[n] -= 1
+            if mag_counts[n] == 0: 
+                del mag_counts[n] 
+        else:
+            result = "No"
+    print(result)
+
+def two_words(a, b): 
+    a = set(a)
+    b = set(b)
+    return "YES" if a & b else "NO"
+
 
 def main(): 
 
-    print(circular_rotate([3,4,5], 2, [1,2]))
+    print(two_words("hello", "world"))
+    print(two_words("hi", "world"))
+    print(two_words("and", "art"))
+    # magazine("attack at dawn", "Attack at dawn")
+    # magazine("give me one grand today night", "give one grand today")
+    # magazine("two times three is not four", "two times two is four")
+    # magazine("ive got a lovely bunch of coconuts", "ive got some coconuts")
+    # print(num_games(20, 3, 6, 70))
+    # print(num_games(20, 3, 6, 85))
+    # print(num_games(100, 20, 1, 180))
+    # print(num_games(99, 3, 1, 5555))
+    # print(circular_rotate([3,4,5], 2, [1,2]))
     # print(acm_team(["10101","11110","00010"]))
     # print(acm_team(["10101","11100","11010","00101"]))
     # a = "1100"
