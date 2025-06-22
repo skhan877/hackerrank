@@ -304,12 +304,27 @@ def two_words(a, b):
     b = set(b)
     return "YES" if a & b else "NO"
 
+def remove_chars(s):
+    deletions = 0 
+    n = len(s) 
+    # s = list(s)
+    for i in range(1, n): 
+        if s[i] == s[i-1]: 
+            deletions += 1
+    return deletions
+
 
 def main(): 
 
-    print(two_words("hello", "world"))
-    print(two_words("hi", "world"))
-    print(two_words("and", "art"))
+    # print(remove_chars("AABAAB"))
+    # print(remove_chars("AAAA"))
+    # print(remove_chars("BBBBB"))
+    # print(remove_chars("ABABABAB"))
+    # print(remove_chars("BABABA"))
+    # print(remove_chars("AAABBB"))
+    # print(two_words("hello", "world"))
+    # print(two_words("hi", "world"))
+    # print(two_words("and", "art"))
     # magazine("attack at dawn", "Attack at dawn")
     # magazine("give me one grand today night", "give one grand today")
     # magazine("two times three is not four", "two times two is four")
