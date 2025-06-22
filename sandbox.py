@@ -265,12 +265,19 @@ def acm_team(topics):
 
     return [max_count, best_teams]
 
+def circular_rotate(a, k, q): 
+    n = len(a)
+    rotated = [0] * n 
+    for i in range(n): 
+        rotated[(i+k)%n] = a[i] 
+    return [rotated[j] for j in q]
 
 
 def main(): 
 
-    print(acm_team(["10101","11110","00010"]))
-    print(acm_team(["10101","11100","11010","00101"]))
+    print(circular_rotate([3,4,5], 2, [1,2]))
+    # print(acm_team(["10101","11110","00010"]))
+    # print(acm_team(["10101","11100","11010","00101"]))
     # a = "1100"
     # b = "1010"
     # print(a, b, str(bin(int(a, 2) | int(b, 2))).replace("0b", "").count("1"))
