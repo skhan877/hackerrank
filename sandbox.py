@@ -313,9 +313,28 @@ def remove_chars(s):
             deletions += 1
     return deletions
 
+def valid_string(s): 
+    if len(s) == 1: 
+        return "YES"
+    
+    counts = [] 
+    for ch in set(s): 
+        counts.append(list(s).count(ch))
+    diffs = [] 
+    for i in range(1, len(counts)): 
+        diffs.append(abs(counts[i]-counts[i-1])) 
+    print(diffs)
+    return "YES" if sum(diffs) <= 1 else "NO"
+
+
 
 def main(): 
 
+    print(valid_string("aabbcd"))
+    # print(valid_string("abcc"))
+    # print(valid_string("aabccc"))
+    # print(valid_string("aabbcd"))
+    # print(valid_string("abcdefghhgfedecba"))
     # print(remove_chars("AABAAB"))
     # print(remove_chars("AAAA"))
     # print(remove_chars("BBBBB"))
