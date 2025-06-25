@@ -326,11 +326,45 @@ def valid_string(s):
     print(diffs)
     return "YES" if sum(diffs) <= 1 else "NO"
 
+def binary_gap(n): 
+    b = bin(n)[2:]
+    if len(b) <= 1: 
+        return 0 
+    p, q  = 0, 1 
+    max_gaps, gaps = 0, 0 
+    while q < len(b): 
+        if b[q] == "0": 
+            gaps += 1 
+        else: 
+            max_gaps = max(max_gaps, gaps) 
+            gaps = 0
+            p = q 
+        q += 1
+    return max_gaps
+
+def fibfrog(A): 
+    def fibo(n): 
+        return n if n <= 1 else (fibo(n-1) + fibo(n-2)) 
+    
+    def is_fibo(n): 
+        for i in range(n*2): 
+            if fibo(i) == n: 
+                return True 
+    
+    n = len(A)
+    leaf = [i+1 for i in range(n) if A[i]==1]
+    leaf.append(n+1)
+    # gaps = [leaf_positions[j] - leaf_positions[j-1] for j in range(len(leaf_positions))]
+    valid = [leaf[j] for j in range(len(leaf)) if is_fibo(leaf[j]) or is_fibo(leaf[j]-leaf[j-1])]
+    
+    return leaf, valid
 
 
 def main(): 
 
-    print(valid_string("aabbcd"))
+    print(fibfrog([0,0,0,1,1,0,1,0,0,0,0]))
+    # print(binary_gap(1041))
+    # print(valid_string("aabbcd"))
     # print(valid_string("abcc"))
     # print(valid_string("aabccc"))
     # print(valid_string("aabbcd"))
