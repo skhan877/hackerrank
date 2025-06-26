@@ -343,6 +343,9 @@ def binary_gap(n):
     return max_gaps
 
 def fibfrog(A): 
+    """
+    Fails some test cases. Still work to do. 
+    """
     def fibo(n): 
         return n if n <= 1 else (fibo(n-1) + fibo(n-2)) 
     
@@ -352,17 +355,59 @@ def fibfrog(A):
                 return True 
     
     n = len(A)
+
+    if n == 1: 
+        return n 
+
     leaf = [i+1 for i in range(n) if A[i]==1]
     leaf.append(n+1)
-    # gaps = [leaf_positions[j] - leaf_positions[j-1] for j in range(len(leaf_positions))]
-    valid = [leaf[j] for j in range(len(leaf)) if is_fibo(leaf[j]) or is_fibo(leaf[j]-leaf[j-1])]
+    jumps = 0  
+
+    while len(leaf) > 1: 
+        for j in range(len(leaf)-1,-1, -1): 
+            # print(j, leaf, jumps)
+            if is_fibo(leaf[j]):
+                jumps += 1 
+                leaf = leaf[j: ]
+                leaf = [x - leaf[0] for x in leaf]
+
+    return -1 if jumps == 0 else jumps  
+
+def piling_up(blocks): 
+    stack = [] 
+    while blocks:
+        cur_pair = [blocks[0], blocks[-1]] 
+        cur_max = max(cur_pair)
+        cur_min = min(cur_pair)
+        if not stack: 
+            stack.append(cur_max) 
+            blocks.remove(cur_max)
+        elif cur_max <= stack[-1]: 
+            stack.append(cur_max) 
+            blocks.remove(cur_max) 
+        elif cur_min <= stack[-1]: 
+            stack.append(cur_min) 
+            blocks.remove(cur_min) 
+        else:
+            break       
     
-    return leaf, valid
+    print("No") if blocks else print("Yes")
+    return 
+
+
+
 
 
 def main(): 
 
-    print(fibfrog([0,0,0,1,1,0,1,0,0,0,0]))
+    piling_up([1,2,3,8,7])
+    piling_up([1,2,3,7,8])
+    piling_up([9])
+    piling_up([9,1])
+    piling_up([1,1,1])
+    # print(fibfrog([]))
+    # print(fibfrog([0]))
+    # print(fibfrog([0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0]))
     # print(binary_gap(1041))
     # print(valid_string("aabbcd"))
     # print(valid_string("abcc"))
